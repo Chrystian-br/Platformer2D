@@ -7,17 +7,15 @@ public class PlayerMain : MonoBehaviour
     #region VARIAVEIS
         public Rigidbody2D playerRigidBody;
         public float speed = 5;
-        public float jump;
+        public float jump = 2;
+        public Vector2 friction = new Vector2(.1f,0);
+
+        private bool _checkJump = false;
     #endregion
      
      
     #region METODOS
-     
-    #endregion
-     
-     
-    #region UNITY-METODOS
-        void Update()
+        private void PlayerMovement()
         {
             if(Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)){
                 playerRigidBody.velocity = new Vector2(-speed, playerRigidBody.velocity.y);
@@ -26,9 +24,36 @@ public class PlayerMain : MonoBehaviour
                 playerRigidBody.velocity = new Vector2(speed, playerRigidBody.velocity.y);
             }
 
-            if(Input.GetKey(KeyCode.UpArrow)){
-                playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, jump);
+            if(playerRigidBody.velocity.x > 0){
+                playerRigidBody.velocity -= friction;
             }
+            else if(playerRigidBody.velocity.x < 0){
+                playerRigidBody.velocity += friction;
+            }
+        }
+
+        private void PlayerJump()
+        {
+            if(Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space)){
+                if(_checkJump){
+                    playerRigidBody.velocity = Vector2.up * jump;
+                    _checkJump = false;
+                }
+            }
+        }
+
+        public void OnCollisionEnter2D(Collision2D collision)
+        {
+            _checkJump = true;
+        }
+    #endregion
+     
+     
+    #region UNITY-METODOS
+        void Update()
+        {
+            PlayerJump();
+            PlayerMovement();
         }
     #endregion
 }
