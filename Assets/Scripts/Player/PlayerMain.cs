@@ -7,21 +7,25 @@ public class PlayerMain : MonoBehaviour
     #region VARIAVEIS
         public Rigidbody2D playerRigidBody;
         public float speed = 5;
+
         public float jump = 2;
         public Vector2 friction = new Vector2(.1f,0);
 
         private bool _checkJump = false;
+        private float _currentSpeed;
     #endregion
      
      
     #region METODOS
         private void PlayerMovement()
         {
+            _currentSpeed = Input.GetKey(KeyCode.LeftControl) ? speed * 2 : speed;
+
             if(Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)){
-                playerRigidBody.velocity = new Vector2(-speed, playerRigidBody.velocity.y);
+                playerRigidBody.velocity = new Vector2(-_currentSpeed, playerRigidBody.velocity.y);
             }
             else if(Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)){
-                playerRigidBody.velocity = new Vector2(speed, playerRigidBody.velocity.y);
+                playerRigidBody.velocity = new Vector2(_currentSpeed, playerRigidBody.velocity.y);
             }
 
             if(playerRigidBody.velocity.x > 0){
