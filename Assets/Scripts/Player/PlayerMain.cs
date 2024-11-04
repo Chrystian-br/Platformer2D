@@ -27,7 +27,6 @@ public class PlayerMain : MonoBehaviour
 
         private bool _checkJump = false;
         private float _currentSpeed;
-        private bool _checkCollision = false;
     #endregion
      
      
@@ -72,12 +71,7 @@ public class PlayerMain : MonoBehaviour
 
         public void OnCollisionEnter2D(Collision2D collision)
         {
-            if(!_checkCollision)
-            {
-                playerRigidBody.transform.DOScaleY(fallScaleY, animationDur).SetLoops(2, LoopType.Yoyo).SetEase(ease);
-                playerRigidBody.transform.DOScaleX(fallScaleX, animationDur).SetLoops(2, LoopType.Yoyo).SetEase(ease);
-            }
-            _checkCollision = true;
+            
             _checkJump = true;
 
         }
