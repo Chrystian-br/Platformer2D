@@ -9,8 +9,12 @@ public class HealthBase : MonoBehaviour
         public bool destroyOnKill = false;
         public float delayToKill = 2f;
 
+        public Animator animator;
+        public string deadTrigger = "Dead";
+
         private float _currentLife;
-        private bool _isDead = false;
+        public bool _isDead = false;
+        
     #endregion
      
      
@@ -29,6 +33,7 @@ public class HealthBase : MonoBehaviour
         {
             _isDead = true;
 
+            animator.SetTrigger(deadTrigger);
             if(destroyOnKill) Destroy(gameObject, delayToKill);
         }
     #endregion
