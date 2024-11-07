@@ -19,8 +19,6 @@ public class EnemyBase : MonoBehaviour
         {
             var health = collision.gameObject.GetComponent<HealthBase>();
 
-            Debug.Log(collision.transform.name);
-
             if(health != null)
             {
                 health.TakeDamage(damage);
