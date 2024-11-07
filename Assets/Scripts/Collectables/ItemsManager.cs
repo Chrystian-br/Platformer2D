@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using RysCorp.Core.Singleton;
 
-public class ItemsManager : MonoBehaviour
+public class ItemsManager : Singleton<ItemsManager>
 {
     #region VARIAVEIS
         public int coins;
-        public static ItemsManager Instance;
+        
+        public TextMeshProUGUI coinText;
     #endregion
      
      
@@ -19,20 +22,12 @@ public class ItemsManager : MonoBehaviour
         public void AddCoins(int amount = 1)
         {
             coins += amount;
+            coinText.text = coins + " x";
         }
     #endregion
      
      
     #region UNITY-METODOS
-        private void Awake()
-        {
-            if(Instance == null){
-                Instance = this;
-            } else {
-                Destroy(gameObject);
-            }
-        }
-
         private void Start()
         {
             Reset();
