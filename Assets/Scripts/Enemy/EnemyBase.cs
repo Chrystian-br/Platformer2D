@@ -6,6 +6,9 @@ public class EnemyBase : MonoBehaviour
 {
     #region VARIAVEIS
         public int damage = 2;
+
+        public Animator animator;
+        public string attackTrigger = "Attack";
     #endregion
      
      
@@ -22,7 +25,13 @@ public class EnemyBase : MonoBehaviour
             if(health != null)
             {
                 health.TakeDamage(damage);
+                AttackAnimation();
             }
+        }
+
+        private void AttackAnimation()
+        {
+            animator.SetTrigger(attackTrigger);
         }
     #endregion
 }

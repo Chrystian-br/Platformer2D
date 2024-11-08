@@ -14,18 +14,26 @@ public class HealthBase : MonoBehaviour
 
         private float _currentLife;
         public bool _isDead = false;
-        
+
+        [SerializeField] private FlashColor _flashColor;
     #endregion
      
      
     #region METODOS
         public void TakeDamage(int damage)
         {
+            if(_isDead) return;
+
             _currentLife -= damage;
 
             if(_currentLife <= 0)
             {
                 Kill();
+            }
+
+            if(_flashColor != null)
+            {
+                _flashColor.damageFlash();
             }
         }
 
@@ -44,6 +52,11 @@ public class HealthBase : MonoBehaviour
         {
             _currentLife = startLife;
             _isDead = false;
+
+            if(_flashColor == null)
+            {
+                _flashColor = GetComponent<FlashColor>();
+            }
         }
     #endregion
 }
