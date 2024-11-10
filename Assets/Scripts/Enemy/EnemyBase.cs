@@ -9,29 +9,37 @@ public class EnemyBase : MonoBehaviour
 
         public Animator animator;
         public string attackTrigger = "Attack";
+
+        public HealthBase healthBase;
     #endregion
      
      
     #region METODOS
-    
+        private void AttackAnimation()
+        {
+            animator.SetTrigger(attackTrigger);
+        }
+
+        public void TakeDamage(int dmg)
+        {
+            healthBase.TakeDamage(dmg);
+        }
     #endregion
      
      
     #region UNITY-METODOS
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            var health = collision.gameObject.GetComponent<HealthBase>();
+            if(!healthBase._isDead){
+                var health = collision.gameObject.GetComponent<HealthBase>();
 
-            if(health != null)
-            {
-                health.TakeDamage(damage);
-                AttackAnimation();
+                if(health != null)
+                {
+                    health.TakeDamage(damage);
+                    AttackAnimation();
+                }
             }
-        }
-
-        private void AttackAnimation()
-        {
-            animator.SetTrigger(attackTrigger);
+            
         }
     #endregion
 }

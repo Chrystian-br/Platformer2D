@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,8 @@ using UnityEngine;
 public class HealthBase : MonoBehaviour
 {
     #region VARIAVEIS
+        public Action onKill;
+
         public int startLife = 10;
         public bool destroyOnKill = false;
         public float delayToKill = 2f;
@@ -42,7 +45,11 @@ public class HealthBase : MonoBehaviour
             _isDead = true;
 
             animator.SetTrigger(deadTrigger);
+            gameObject.GetComponent<Collider2D>().enabled = false;
+
             if(destroyOnKill) Destroy(gameObject, delayToKill);
+
+            onKill.Invoke();
         }
     #endregion
      
