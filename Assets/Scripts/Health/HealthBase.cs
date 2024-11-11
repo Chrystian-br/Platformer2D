@@ -13,29 +13,35 @@ public class HealthBase : MonoBehaviour
         public Animator animator;
         public string deadTrigger = "Dead";
 
-        private float _currentLife;
+        [NonSerialized] public float _currentLife;
         public bool _isDead = false;
 
         [SerializeField] private FlashColor _flashColor;
+
+        public RevivePlayer revive;
+        public bool _isImortal = false;
     #endregion
      
      
     #region METODOS
         public void TakeDamage(int damage)
         {
-            if(_isDead) return;
+            if(!_isImortal){
+                if(_isDead) return;
 
-            _currentLife -= damage;
+                _currentLife -= damage;
 
-            if(_currentLife <= 0)
-            {
-                Kill();
+                if(_currentLife <= 0)
+                {
+                    Kill();
+                }
+
+                if(_flashColor != null)
+                {
+                    _flashColor.damageFlash();
+                }
             }
-
-            if(_flashColor != null)
-            {
-                _flashColor.damageFlash();
-            }
+            
         }
 
         private void Kill()
@@ -46,6 +52,10 @@ public class HealthBase : MonoBehaviour
             gameObject.GetComponent<Collider2D>().enabled = false;
 
             if(destroyOnKill) Destroy(gameObject, delayToKill);
+
+            if(gameObject.GetComponent<PlayerMain>()){
+                revive.TurnOnRevivePopUp();
+            }
         }
     #endregion
      

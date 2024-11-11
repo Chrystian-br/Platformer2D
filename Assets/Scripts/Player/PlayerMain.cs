@@ -85,7 +85,6 @@ public class PlayerMain : MonoBehaviour
                     playerRigidBody.velocity += friction;
                 }
             }
-            
         }
 
         private void PlayerJump()
@@ -117,14 +116,11 @@ public class PlayerMain : MonoBehaviour
                     }
                 }
             }
-            
         }
 
         public void OnCollisionEnter2D(Collision2D collision)
         {
-            
             _checkJump = true;
-
         }
     #endregion
      
