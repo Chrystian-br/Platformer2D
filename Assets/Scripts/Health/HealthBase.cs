@@ -6,11 +6,9 @@ using UnityEngine;
 public class HealthBase : MonoBehaviour
 {
     #region VARIAVEIS
-        public Action onKill;
-
         public int startLife = 10;
         public bool destroyOnKill = false;
-        public float delayToKill = 2f;
+        public float delayToKill = 4f;
 
         public Animator animator;
         public string deadTrigger = "Dead";
@@ -48,8 +46,6 @@ public class HealthBase : MonoBehaviour
             gameObject.GetComponent<Collider2D>().enabled = false;
 
             if(destroyOnKill) Destroy(gameObject, delayToKill);
-
-            onKill.Invoke();
         }
     #endregion
      

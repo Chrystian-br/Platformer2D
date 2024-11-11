@@ -23,11 +23,18 @@ public class EnemyBase : MonoBehaviour
         public void TakeDamage(int dmg)
         {
             healthBase.TakeDamage(dmg);
+
+            
         }
     #endregion
      
      
     #region UNITY-METODOS
+        private void Awake()
+        {
+            healthBase.destroyOnKill = true;
+        }
+    
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if(!healthBase._isDead){
