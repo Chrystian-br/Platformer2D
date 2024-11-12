@@ -56,6 +56,10 @@ public class HealthBase : MonoBehaviour
             if(gameObject.GetComponent<PlayerMain>()){
                 revive.TurnOnRevivePopUp();
             }
+
+            if(gameObject.GetComponent<EnemyBase>()){
+                ItemsManager.Instance.AddKills(1);
+            }
         }
     #endregion
      

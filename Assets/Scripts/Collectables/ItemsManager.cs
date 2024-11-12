@@ -7,22 +7,31 @@ using RysCorp.Core.Singleton;
 public class ItemsManager : Singleton<ItemsManager>
 {
     #region VARIAVEIS
-        public int coins;
+        public SOInt coins;
+        public SOInt kills;
         
         public TextMeshProUGUI coinText;
+        public TextMeshProUGUI killText;
     #endregion
      
      
     #region METODOS
         private void Reset()
         {
-            coins = 0;
+            coins.count = 0;
+            kills.count = 0;
         }
 
         public void AddCoins(int amount = 1)
         {
-            coins += amount;
-            coinText.text = coins + " x";
+            coins.count += amount;
+            // coinText.text = coins.count + " x";
+        }
+
+        public void AddKills(int amount = 1)
+        {
+            kills.count += amount;
+            // killText.text = "x " + kills.count;
         }
     #endregion
      
