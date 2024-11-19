@@ -11,6 +11,7 @@ public class GunBase : MonoBehaviour
 
         public HealthBase healthBase;
         public Transform playerSideReference;
+        public PlayerMain player;
 
         private Coroutine _currentCoroutine;
     #endregion
@@ -46,7 +47,17 @@ public class GunBase : MonoBehaviour
                     if(_currentCoroutine != null) StopCoroutine(_currentCoroutine);
                 }
             }
-            
+        }
+
+        private void Awake()
+        {
+            if(healthBase == null){
+                healthBase = player.transform.GetComponent<HealthBase>();
+            }
+
+            if(playerSideReference == null){
+                playerSideReference = player.transform;
+            }
         }
     #endregion
 }
