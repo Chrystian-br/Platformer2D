@@ -6,34 +6,20 @@ using DG.Tweening;
 public class PlayerMain : MonoBehaviour
 {
     #region VARIAVEIS
-        [Header("Movement Setup")]
+        [Header("Setup")]
+        public SOPlayer SOPlayerSetup;
         public Rigidbody2D playerRigidBody;
-        public float speed = 5;
-        public float speedRun = 2;
-
-        public float jump = 2;
-        public Vector2 friction = new Vector2(.1f,0);
-
-        [Header("Animation setup")]
-        public float jumpScaleY = 1.3f;
-        public float jumpScaleX = .7f;
-        public float animationDur = .3f;
-        public Ease ease = Ease.OutBack;
+        // public Animator animator;
+        public HealthBase health;
         
-        [Header("Animation player")]
-        public Animator animator;
-        public string runBool = "Run";
-        public string jumpTrigger = "Jump";
-        public float swipeDuration = .1f;
-        
-        private bool _checkDirection = false;
         private Vector2 leftDirection = new Vector2(-1,1);
         private Vector2 rightDirection = new Vector2(1,1);
-
-        public HealthBase health;
-
+        
         private bool _checkJump = false;
+        private bool _checkDirection = false;
         private float _currentSpeed;
+        private Animator _currentPlayer;
+
     #endregion
      
      
@@ -41,48 +27,48 @@ public class PlayerMain : MonoBehaviour
         private void PlayerMovement()
         {
             if(!health._isDead){
-                _currentSpeed = Input.GetKey(KeyCode.LeftControl) ? speed * speedRun : speed;
+                _currentSpeed = Input.GetKey(KeyCode.LeftControl) ? SOPlayerSetup.speed * SOPlayerSetup.speedRun : SOPlayerSetup.speed;
 
                 if(Input.GetKey(KeyCode.LeftControl)){
-                    _currentSpeed = speed * speedRun;
-                    animator.speed = 2;
+                    _currentSpeed = SOPlayerSetup.speed * SOPlayerSetup.speedRun;
+                    _currentPlayer.speed = 2;
                 } else {
-                    _currentSpeed = speed;
-                    animator.speed = 1;
+                    _currentSpeed = SOPlayerSetup.speed;
+                    _currentPlayer.speed = 1;
                 }
 
                 if(Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)){
                     playerRigidBody.velocity = new Vector2(-_currentSpeed, playerRigidBody.velocity.y);
 
                     if(!_checkDirection){
-                        playerRigidBody.transform.DOScaleX(-1, swipeDuration);
+                        playerRigidBody.transform.DOScaleX(-1, SOPlayerSetup.swipeDuration);
                     }
 
                     _checkDirection = true;
 
-                    animator.SetBool(runBool, true);
+                    _currentPlayer.SetBool(SOPlayerSetup.runBool, true);
                 }
                 else if(Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)){
                     playerRigidBody.velocity = new Vector2(_currentSpeed, playerRigidBody.velocity.y);
 
                     if(_checkDirection){
-                        playerRigidBody.transform.DOScaleX(1, swipeDuration);
+                        playerRigidBody.transform.DOScaleX(1, SOPlayerSetup.swipeDuration);
                     }
 
                     _checkDirection = false;
 
-                    animator.SetBool(runBool, true);
+                    _currentPlayer.SetBool(SOPlayerSetup.runBool, true);
                 }
                 else{
-                    animator.SetBool(runBool, false);
+                    _currentPlayer.SetBool(SOPlayerSetup.runBool, false);
                 }
 
 
                 if(playerRigidBody.velocity.x > 0){
-                    playerRigidBody.velocity -= friction;
+                    playerRigidBody.velocity -= SOPlayerSetup.friction;
                 }
                 else if(playerRigidBody.velocity.x < 0){
-                    playerRigidBody.velocity += friction;
+                    playerRigidBody.velocity += SOPlayerSetup.friction;
                 }
             }
         }
@@ -94,7 +80,7 @@ public class PlayerMain : MonoBehaviour
 
                 if(Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space)){
                     if(_checkJump){
-                        playerRigidBody.velocity = Vector2.up * jump;
+                        playerRigidBody.velocity = Vector2.up * SOPlayerSetup.jump;
 
                         RBTransform.localScale = Vector2.one;
 
@@ -102,17 +88,17 @@ public class PlayerMain : MonoBehaviour
 
                         if(!_checkDirection){
                             RBTransform.localScale = rightDirection;
-                            RBTransform.DOScaleY(jumpScaleY, animationDur).SetLoops(2, LoopType.Yoyo).SetEase(ease);
-                            RBTransform.DOScaleX(jumpScaleX, animationDur).SetLoops(2, LoopType.Yoyo).SetEase(ease);
+                            RBTransform.DOScaleY(SOPlayerSetup.jumpScaleY, SOPlayerSetup.animationDur).SetLoops(2, LoopType.Yoyo).SetEase(SOPlayerSetup.ease);
+                            RBTransform.DOScaleX(SOPlayerSetup.jumpScaleX, SOPlayerSetup.animationDur).SetLoops(2, LoopType.Yoyo).SetEase(SOPlayerSetup.ease);
                         } else {
                             RBTransform.localScale = leftDirection;
-                            RBTransform.DOScaleY(jumpScaleY, animationDur).SetLoops(2, LoopType.Yoyo).SetEase(ease);
-                            RBTransform.DOScaleX(-jumpScaleX, animationDur).SetLoops(2, LoopType.Yoyo).SetEase(ease);
+                            RBTransform.DOScaleY(SOPlayerSetup.jumpScaleY, SOPlayerSetup.animationDur).SetLoops(2, LoopType.Yoyo).SetEase(SOPlayerSetup.ease);
+                            RBTransform.DOScaleX(-SOPlayerSetup.jumpScaleX, SOPlayerSetup.animationDur).SetLoops(2, LoopType.Yoyo).SetEase(SOPlayerSetup.ease);
                         }
 
                         _checkJump = false;
 
-                        animator.SetTrigger(jumpTrigger);
+                        _currentPlayer.SetTrigger(SOPlayerSetup.jumpTrigger);
                     }
                 }
             }
@@ -130,6 +116,11 @@ public class PlayerMain : MonoBehaviour
         {
             PlayerJump();
             PlayerMovement();
+        }
+
+        void Awake()
+        {
+            _currentPlayer = Instantiate(SOPlayerSetup.player, transform);
         }
     #endregion
 }

@@ -15,6 +15,7 @@ public class RevivePlayer : MonoBehaviour
 
         [Header("Imortal")]
         public PlayerMain player;
+        public GameObject playerSetup;
         public List<SpriteRenderer> spriteRenderers;
         public Color imortalColor = Color.yellow;
         public float imortalDuration = 4f;
@@ -73,6 +74,8 @@ public class RevivePlayer : MonoBehaviour
             foreach(var child in player.transform.GetComponentsInChildren<SpriteRenderer>()){
                 spriteRenderers.Add(child);
             }
+
+            animator = player.transform.GetComponentInChildren<Animator>();
         }
     #endregion
 }

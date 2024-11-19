@@ -16,7 +16,7 @@ public class HealthBase : MonoBehaviour
         [NonSerialized] public float _currentLife;
         public bool _isDead = false;
 
-        [SerializeField] private FlashColor _flashColor;
+        private FlashColor _flashColor;
 
         public RevivePlayer revive;
         public bool _isImortal = false;
@@ -73,6 +73,11 @@ public class HealthBase : MonoBehaviour
             if(_flashColor == null)
             {
                 _flashColor = GetComponent<FlashColor>();
+            }
+
+            if(transform.GetComponent<PlayerMain>()){
+                animator = transform.GetComponentInChildren<Animator>();
+                _flashColor = transform.GetComponentInChildren<FlashColor>();
             }
         }
     #endregion
