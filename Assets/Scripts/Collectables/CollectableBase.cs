@@ -11,6 +11,8 @@ public class CollectableBase : MonoBehaviour
         
         public float animationCollectDelay = 0.5f;
 
+        public ParticleSystem pSystem;
+        public GameObject floor;
     #endregion
      
      
@@ -23,7 +25,7 @@ public class CollectableBase : MonoBehaviour
 
         protected virtual void OnCollect()
         {
-            
+            if(pSystem != null) pSystem.Play();
         }
     #endregion
      
@@ -37,6 +39,14 @@ public class CollectableBase : MonoBehaviour
                 gameObject.transform.DOLocalMoveX(collision.transform.position.x, animationCollectDelay);
 
                 Invoke(nameof(Collect),animationCollectDelay - 0.2f);
+            }
+        }
+
+        private void Awake()
+        {
+            if(pSystem != null){
+                pSystem.transform.SetParent(null);
+                pSystem.collision.AddPlane(floor.transform);
             }
         }
     #endregion
