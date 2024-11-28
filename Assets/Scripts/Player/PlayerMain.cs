@@ -20,6 +20,7 @@ public class PlayerMain : MonoBehaviour
         private float _currentSpeed;
         private Animator _currentPlayer;
 
+        public ParticleSystem jumpVFX;
     #endregion
      
      
@@ -99,6 +100,8 @@ public class PlayerMain : MonoBehaviour
                         _checkJump = false;
 
                         _currentPlayer.SetTrigger(SOPlayerSetup.jumpTrigger);
+
+                        PlayJumpVFX();
                     }
                 }
             }
@@ -107,6 +110,11 @@ public class PlayerMain : MonoBehaviour
         public void OnCollisionEnter2D(Collision2D collision)
         {
             _checkJump = true;
+        }
+
+        private void PlayJumpVFX()
+        {
+            VFXManager.Instance.PlayVFXByType(VFXManager.VFXType.JUMP, transform.position);
         }
     #endregion
      

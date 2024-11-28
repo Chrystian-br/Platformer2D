@@ -51,6 +51,7 @@ MonoBehaviour:
   compareTag: Player
   animationCollectDelay: 0.3
   pSystem: {fileID: 6730148507277639273}
+  floor: {fileID: 0}
 --- !u!58 &8482302018301114362
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -233,6 +234,10 @@ PrefabInstance:
     - target: {fileID: 4387578408187825523, guid: 2ca62a4f0a29e7047a44c997fe970738, type: 3}
       propertyPath: m_Name
       value: PFB_ParticleSystem
+      objectReference: {fileID: 0}
+    - target: {fileID: 7409427489941734583, guid: 2ca62a4f0a29e7047a44c997fe970738, type: 3}
+      propertyPath: playOnAwake
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
