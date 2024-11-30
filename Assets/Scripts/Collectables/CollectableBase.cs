@@ -13,6 +13,10 @@ public class CollectableBase : MonoBehaviour
 
         public ParticleSystem pSystem;
         public GameObject floor;
+
+        [Header("Sounds")]
+        public AudioSource audioSource;
+
     #endregion
      
      
@@ -20,12 +24,18 @@ public class CollectableBase : MonoBehaviour
         protected virtual void Collect()
         {
             OnCollect();
-            gameObject.SetActive(false);
+            Invoke("AutoDestroy", 3f);
         }
 
         protected virtual void OnCollect()
         {
             if(pSystem != null) pSystem.Play();
+            if(audioSource != null) audioSource.Play();
+        }
+
+        private void AutoDestroy()
+        {
+            Destroy(gameObject);
         }
     #endregion
      
