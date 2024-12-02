@@ -20,6 +20,9 @@ public class HealthBase : MonoBehaviour
 
         public RevivePlayer revive;
         public bool _isImortal = false;
+
+        [Header("Sounds")]
+        public AudioSource enemyDieAudio;
     #endregion
      
      
@@ -59,6 +62,7 @@ public class HealthBase : MonoBehaviour
 
             if(gameObject.GetComponent<EnemyBase>()){
                 ItemsManager.Instance.AddKills(1);
+                enemyDieAudio.Play();
             }
         }
     #endregion

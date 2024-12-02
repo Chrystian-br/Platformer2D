@@ -28,6 +28,19 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!245 &-1703355760075269100
+AudioMixerSnapshotController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Cave
+  m_AudioMixer: {fileID: 24100000}
+  m_SnapshotID: 020426ec37cc5e34b92e1746001064e1
+  m_FloatValues:
+    2f3f9411f6c9bad488867a3f6d5db430: 20
+    e02c597421e2bb942b9bfe65104da38c: -6.5566154
+  m_TransitionOverrides: {}
 --- !u!245 &-1137213007790841433
 AudioMixerSnapshotController:
   m_ObjectHideFlags: 0
@@ -54,6 +67,7 @@ AudioMixerController:
   m_Snapshots:
   - {fileID: 24500006}
   - {fileID: -1137213007790841433}
+  - {fileID: -1703355760075269100}
   m_StartSnapshot: {fileID: 24500006}
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
@@ -118,7 +132,7 @@ AudioMixerSnapshotController:
   m_SnapshotID: 1ab7d0795d327dd46a07f4c907bc365d
   m_FloatValues:
     2f3f9411f6c9bad488867a3f6d5db430: -6.133707
-    e02c597421e2bb942b9bfe65104da38c: -6.5566154
+    e02c597421e2bb942b9bfe65104da38c: -9.833286
   m_TransitionOverrides: {}
 --- !u!244 &856171486073714764
 AudioMixerEffectController:

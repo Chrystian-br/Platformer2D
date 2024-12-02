@@ -34,13 +34,23 @@ public class GameManager : Singleton<GameManager>
             _currentPlayer.transform.position = startPoint.position;
             _currentPlayer.transform.DOScale(0, duration).From().SetDelay(delay).SetEase(ease);
         }
+
+        public void Pause()
+        {
+            Time.timeScale = 0;
+        }
+
+        public void Resume()
+        {
+            Time.timeScale = 1;
+        }
     #endregion
      
      
     #region UNITY-METODOS
         private void Start()
         {
-            SpawnPlayer();
+            //SpawnPlayer();
         }
     #endregion
 }
